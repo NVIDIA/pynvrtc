@@ -27,7 +27,7 @@ setup(
     author='Sean Lee',
     author_email='seanlee@nvidia.com',
     packages=['pynvrtc'],
-    url='https://github.com/nvidia-compiler-sdk/pynvrtc',
+    url='https://github.com/NVIDIA/pynvrtc',
     license='MIT',
     description='Python bindings to NVRTC',
     long_description=open('README.rst').read(),
