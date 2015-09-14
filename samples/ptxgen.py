@@ -29,7 +29,7 @@ NOTE: If you get errors about not being able to load nvrtc, please make sure
 your [DY]LD_LIBRARY_PATH/PATH environment variable points to the nvrtc binary
 in your CUDA installation, e.g.
 
-  $ export LD_LIBRARY_PATH=/usr/local/cuda-7.0/nvrtc/lib64
+  $ export LD_LIBRARY_PATH=/usr/local/cuda-7.5/nvrtc/lib64
 """
 
 import sys

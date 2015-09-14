@@ -23,7 +23,7 @@ from setuptools import setup
 
 setup(
     name='pynvrtc',
-    version='7.0',
+    version='7.5',
     author='Sean Lee',
     author_email='seanlee@nvidia.com',
     packages=['pynvrtc'],
