@@ -61,4 +61,18 @@ class CompileTests(unittest.TestCase):
         i.nvrtcCompileProgram(prog, [])
         ptx = i.nvrtcGetPTX(prog)
         self.assertTrue(len(ptx) > 0)
-        i.nvrtcDestroyProgram(prog)  
+        i.nvrtcDestroyProgram(prog)
+
+    def test_lower_name(self):
+        import pynvrtc.interface
+        i = get_interface()
+        prog = i.nvrtcCreateProgram('template<typename T>\n'
+                                    '__global__ void k(T *ptr) {}\n',
+                                    'simple.cu', [], [])
+        i.nvrtcAddNameExpression(prog, 'k<float>')
+        i.nvrtcAddNameExpression(prog, 'k<int>')
+        i.nvrtcCompileProgram(prog, [])
+        name = i.nvrtcGetLoweredName(prog, 'k<float>')
+        self.assertTrue(name == "_Z1kIfEvPT_")
+        name = i.nvrtcGetLoweredName(prog, 'k<int>')
+        self.assertTrue(name == "_Z1kIiEvPT_")

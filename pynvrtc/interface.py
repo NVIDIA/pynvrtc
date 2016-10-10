@@ -139,6 +139,19 @@ class NVRTCInterface(object):
         ]
         self._lib.nvrtcGetProgramLog.restype = c_int
 
+        self._lib.nvrtcAddNameExpression.argtypes = [
+            c_void_p,           # prog
+            c_char_p            # nameExpression
+        ]
+        self._lib.nvrtcAddNameExpression.restype = c_int
+
+        self._lib.nvrtcGetLoweredName.argtypes = [
+            c_void_p,           # prog
+            c_char_p,           # nameExpression
+            POINTER(c_char_p)   # loweredName
+        ]
+        self._lib.nvrtcGetLoweredName.restype = c_int
+
         self._lib.nvrtcGetErrorString.argtypes = [
             c_int               # result
         ]
@@ -223,6 +236,28 @@ class NVRTCInterface(object):
         self._throw_on_error(code)
 
         return buf.value.decode('utf-8')
+
+    def nvrtcAddNameExpression(self, prog, name_expression):
+        """
+        Notes the given name expression denoting a __global__ function or
+        function template instantiation.
+        """
+        code = self._lib.nvrtcAddNameExpression(prog,
+                                                c_char_p(name_expression))
+        self._throw_on_error(code)
+        return
+
+    def nvrtcGetLoweredName(self, prog, name_expression):
+        """
+        Notes the given name expression denoting a __global__ function or
+        function template instantiation.
+        """
+        lowered_name = c_char_p()
+        code = self._lib.nvrtcGetLoweredName(prog,
+                                             c_char_p(name_expression),
+                                             byref(lowered_name))
+        self._throw_on_error(code)
+        return lowered_name.value.decode('utf-8')
 
     def nvrtcGetErrorString(self, code):
         """
