@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2015, NVIDIA Corporation.  All rights reserved.
+# Copyright (c) 2014-2016, NVIDIA Corporation.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -76,15 +76,15 @@ class NVRTCInterface(object):
         Loads the NVRTC shared library, with an optional search path in
         lib_path.
         """
-        if system() == 'Windows':
-            if sizeof(c_void_p) == 8:
-                def_lib_name = 'nvrtc64_75.dll'
+        if sizeof(c_void_p) == 8:
+            if system() == 'Windows':
+                def_lib_name = 'nvrtc64_80.dll'
+            elif system() == 'Darwin':
+                def_lib_name = 'libnvrtc.dylib'
             else:
-                def_lib_name = 'nvrtc32_75.dll'
-        elif system() == 'Darwin':
-            def_lib_name = 'libnvrtc.dylib'
+                def_lib_name = 'libnvrtc.so'
         else:
-            def_lib_name = 'libnvrtc.so'
+            raise NVRTCException('NVRTC is not supported on 32-bit platforms.')
 
         if len(lib_path) == 0:
             name = def_lib_name
