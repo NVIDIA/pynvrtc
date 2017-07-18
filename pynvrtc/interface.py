@@ -20,6 +20,7 @@
 # SOFTWARE.
 
 
+import sys
 from ctypes import (
     POINTER,
     c_int,
@@ -34,6 +35,8 @@ from ctypes import (
 from platform import system
 
 
+is_python2 = sys.version_info.major == 2
+
 # NVRTC status codes
 NVRTC_SUCCESS = 0
 NVRTC_ERROR_OUT_OF_MEMORY = 1
@@ -43,6 +46,18 @@ NVRTC_ERROR_INVALID_PROGRAM = 4
 NVRTC_ERROR_INVALID_OPTION = 5
 NVRTC_ERROR_COMPILATION = 6
 NVRTC_ERROR_BUILTIN_OPERATION_FAILURE = 7
+
+
+def encode_str(s):
+    if is_python2:
+        return s
+    return s.encode("utf-8")
+
+
+def encode_str_list(str_list):
+    if is_python2:
+        return str_list
+    return list(map(encode_str, str_list))
 
 
 class NVRTCException(Exception):
@@ -178,11 +193,11 @@ class NVRTCInterface(object):
         """
         res = c_void_p()
         headers_array = (c_char_p * len(headers))()
-        headers_array[:] = headers
+        headers_array[:] = encode_str_list(headers)
         include_names_array = (c_char_p * len(include_names))()
-        include_names_array[:] = include_names
+        include_names_array[:] = encode_str_list(include_names)
         code = self._lib.nvrtcCreateProgram(byref(res),
-                                            c_char_p(src), c_char_p(name),
+                                            c_char_p(encode_str(src)), c_char_p(encode_str(name)),
                                             len(headers),
                                             headers_array, include_names_array)
         self._throw_on_error(code)
@@ -202,7 +217,7 @@ class NVRTCInterface(object):
         array.  See the NVRTC API documentation for accepted options.
         """
         options_array = (c_char_p * len(options))()
-        options_array[:] = options
+        options_array[:] = encode_str_list(options)
         code = self._lib.nvrtcCompileProgram(prog, len(options), options_array)
         self._throw_on_error(code)
         return
@@ -243,7 +258,7 @@ class NVRTCInterface(object):
         function template instantiation.
         """
         code = self._lib.nvrtcAddNameExpression(prog,
-                                                c_char_p(name_expression))
+                                                c_char_p(encode_str(name_expression)))
         self._throw_on_error(code)
         return
 
@@ -254,7 +269,7 @@ class NVRTCInterface(object):
         """
         lowered_name = c_char_p()
         code = self._lib.nvrtcGetLoweredName(prog,
-                                             c_char_p(name_expression),
+                                             c_char_p(encode_str(name_expression)),
                                              byref(lowered_name))
         self._throw_on_error(code)
         return lowered_name.value.decode('utf-8')
