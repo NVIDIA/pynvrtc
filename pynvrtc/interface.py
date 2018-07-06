@@ -93,7 +93,7 @@ class NVRTCInterface(object):
         """
         if sizeof(c_void_p) == 8:
             if system() == 'Windows':
-                def_lib_name = 'nvrtc64_91.dll'
+                def_lib_name = 'nvrtc64_92.dll'
             elif system() == 'Darwin':
                 def_lib_name = 'libnvrtc.dylib'
             else:
