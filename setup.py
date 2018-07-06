@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2016, NVIDIA Corporation.  All rights reserved.
+# Copyright (c) 2014-2018, NVIDIA Corporation.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@ from setuptools import setup
 
 setup(
     name='pynvrtc',
-    version='8.0',
+    version='9.0',
     author='Sean Lee',
     author_email='seanlee@nvidia.com',
     packages=['pynvrtc'],

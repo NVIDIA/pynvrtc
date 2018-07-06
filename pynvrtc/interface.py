@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2016, NVIDIA Corporation.  All rights reserved.
+# Copyright (c) 2014-2018, NVIDIA Corporation.  All rights reserved.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -93,7 +93,7 @@ class NVRTCInterface(object):
         """
         if sizeof(c_void_p) == 8:
             if system() == 'Windows':
-                def_lib_name = 'nvrtc64_80.dll'
+                def_lib_name = 'nvrtc64_90.dll'
             elif system() == 'Darwin':
                 def_lib_name = 'libnvrtc.dylib'
             else:
