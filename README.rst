@@ -8,7 +8,7 @@ Introduction
 The pynvrtc package is a Python binding for NVRTC, the CUDA runtime
 compilation library from NVIDIA.  This library takes CUDA source input and
 produces NVIDIA PTX output suitable for execution on NVIDIA GPUs on any
-platform.  Please see the CUDA 9.0 documentation for a complete description of
+platform.  Please see the CUDA 9.1 documentation for a complete description of
 NVRTC.
 
 
@@ -57,7 +57,7 @@ overwrites the system search path.  For example, on Linux:
 
     from pynvrtc.interface import NVRTCInterface
 
-    inter = NVRTCInterface('/usr/local/cuda-9.0/nvrtc/lib64/libnvrtc.so')
+    inter = NVRTCInterface('/usr/local/cuda-9.1/lib64/libnvrtc.so')
 
 **NOTE**: It is important that the specified binary match the architecture of
 the Python interpreter under which your program is running.
