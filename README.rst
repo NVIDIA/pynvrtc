@@ -1,3 +1,6 @@
+> [!WARNING]
+> THIS PROJECT HAS BEEN DEPRECATED AND SUPERSEDED BY https://github.com/NVIDIA/CUDA-Python.
+
 ==================================
 pynvrtc - Python Bindings to NVRTC
 ================================== 
